@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Map Title</title>
+    <title>VATSIM MAP</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbecquet/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script>
@@ -41,7 +41,7 @@
                         var marker = L.marker([pilot.lat, pilot.lon], { icon: customIcon })
                             .addTo(markers)
                             .bindPopup(
-                                `<strong>${pilot.name}</strong><br>Altitude: ${pilot.alt} ft<br>Heading: ${pilot.heading}°`
+                                `<strong>${pilot.name}</strong><br>Altitude: ${pilot.alt}<br>Transponder: ${pilot.transponder} <br>Heading: ${pilot.heading}°`
                             );
                     });
                 });

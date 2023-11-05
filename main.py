@@ -25,7 +25,8 @@ def update_pilots():
             'lat': pilot['latitude'],
             'lon': pilot['longitude'],
             'alt': pilot['altitude'],
-             'heading': pilot['heading']
+            'heading': pilot['heading'],
+            'transponder': pilot['transponder']
         }
         for pilot in data['pilots']
     ]
@@ -38,4 +39,4 @@ def img():
     return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
