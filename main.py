@@ -17,25 +17,37 @@ def update_pilots():
     response = requests.get(url)
     data = response.json()
 
-    # Extract relevant pilot information (name, latitude, longitude)
+    # Extract relevant pilot information (name, latitude, longitude, departure, arrival, route)
     global pilots_info
-    pilots_info = [
-        {
-            'name': pilot['name'],
+    pilots_info = []
+
+    for pilot in data['pilots']:
+        pilot_info = {
+            'name': pilot['name'][:-4],  # Truncate the last 4 characters from the 'name' field
             'lat': pilot['latitude'],
             'lon': pilot['longitude'],
             'alt': pilot['altitude'],
             'heading': pilot['heading'],
-            'transponder': pilot['transponder']
+            'transponder': pilot['transponder'],
+            'departure': '',
+            'arrival': '',
+            'route': ''
         }
-        for pilot in data['pilots']
-    ]
+
+        flight_plan = pilot.get('flight_plan')
+
+        if flight_plan:
+            pilot_info['departure'] = flight_plan.get('departure', '')
+            pilot_info['arrival'] = flight_plan.get('arrival', '')
+            pilot_info['route'] = flight_plan.get('route', '')
+
+        pilots_info.append(pilot_info)
 
     return jsonify(pilots_info)
 
 @app.route('/img')
 def img():
-    image_path = 'C:/Users/sachi/Downloads/_Untitled design_inPixio.png'
+    image_path = 'C:/Users/sachi/Downloads/_Untitled design_inPixioedited.png'
     return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
