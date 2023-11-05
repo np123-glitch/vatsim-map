@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Map Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbecquet/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script>
+</head>
+
+<body style="margin: 0;">
+
+    <div id="map" style="height: 100vh;"></div>
+
+    <script>
+        var myMap = L.map('map').setView([37.7749, -122.4194], 3);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(myMap);
+
+        var markers = L.layerGroup().addTo(myMap);
+
+        function updatePilotData() {
+            fetch('/update_pilots')
+                .then(response => response.json())
+                .then(data => {
+                    markers.clearLayers();
+
+                    data.forEach(function (pilot) {
+                        var customIcon = L.divIcon({
+                            html: '<img src="http://127.0.0.1:5000/img" style="transform: rotate(' + pilot.heading + 'deg);">',
+                            iconSize: [30, 30],
+                            iconAnchor: [15, 15],
+                            popupAnchor: [0, -15]
+                            
+                        });
+
+                        var marker = L.marker([pilot.lat, pilot.lon], { icon: customIcon })
+                            .addTo(markers)
+                            .bindPopup(
+                                `<strong>${pilot.name}</strong><br>Altitude: ${pilot.alt} ft<br>Heading: ${pilot.heading}°`
+                            );
+                    });
+                });
+        }
+
+        updatePilotData();
+
+        setInterval(updatePilotData, 15000);
+    </script>
+
+</body>
+
+</html>
