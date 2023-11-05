@@ -31,11 +31,11 @@
 
                     data.forEach(function (pilot) {
                         var customIcon = L.divIcon({
-                            html: '<img src="http://127.0.0.1:5000/img" style="transform: rotate(' + pilot.heading + 'deg);">',
+                            html: `<img src="http://127.0.0.1:80/img" style="width: 30px; height: 30px; transform: rotate(${pilot.heading}deg);">`,
                             iconSize: [30, 30],
                             iconAnchor: [15, 15],
-                            popupAnchor: [0, -15]
-                            
+                            popupAnchor: [0, -15],
+                            className: 'custom-icon'
                         });
 
                         var marker = L.marker([pilot.lat, pilot.lon], { icon: customIcon })
