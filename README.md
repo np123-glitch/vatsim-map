@@ -36,7 +36,7 @@ The VATSIM Map Project is a web application that provides a real-time map displa
     python app.py
     ```
 
-    Visit `http://127.0.0.1:5000` in your browser to view the VATSIM map.
+    Visit `http://127.0.0.1:80` in your browser to view the VATSIM map.
 
 ## Configuration
 
