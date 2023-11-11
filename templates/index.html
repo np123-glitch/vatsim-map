@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VATSIM MAP</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="icon" type="image/x-icon" href="C:/Users/sachi/OneDrive/Documents/GitHub/vatsim-map/favicon.ico">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbecquet/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script>
 </head>
@@ -32,7 +33,7 @@
 
                     data.forEach(function (pilot) {
                         var customIcon = L.divIcon({
-                            html: `<img src="http://127.0.0.1:80/img" style="width: 30px; height: 30px; transform: rotate(${pilot.heading}deg);">`,
+                            html: `<img src="/img" style="width: 30px; height: 30px; transform: rotate(${pilot.heading}deg);">`,
                             iconSize: [30, 30],
                             iconAnchor: [15, 15],
                             popupAnchor: [0, -15],
@@ -42,7 +43,7 @@
                         var marker = L.marker([pilot.lat, pilot.lon], { icon: customIcon })
                             .addTo(markers)
                             .bindPopup(
-                                `<strong>${pilot.name}</strong><br>Altitude: ${pilot.alt}<br>Transponder: ${pilot.transponder} <br>Departure: ${pilot.departure} <br>Destination: ${pilot.arrival} <br>Route: ${pilot.route}`
+                                `<strong>${pilot.callsign}</strong><br>Altitude: ${pilot.alt}<br>Transponder: ${pilot.transponder} <br>Departure: ${pilot.departure} <br>Destination: ${pilot.arrival} <br>Route: ${pilot.route}`
                             );
                     });
                 });

@@ -23,7 +23,7 @@ def update_pilots():
 
     for pilot in data['pilots']:
         pilot_info = {
-            'name': pilot['name'][:-4],  # Truncate the last 4 characters from the 'name' field
+            'callsign': pilot['callsign'],  # Truncate the last 4 characters from the 'name' field
             'lat': pilot['latitude'],
             'lon': pilot['longitude'],
             'alt': pilot['altitude'],
